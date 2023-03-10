@@ -1,20 +1,47 @@
 package stepdefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import pages.S_Homework_BlueRental;
+import org.openqa.selenium.WebElement;
+import pages.S_Homework1;
+import pages.S_Homework4;
 import utilities.Driver;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class S_HomeworkStepDefinitions {
 
-S_Homework_BlueRental seleniumHomeWork_blueRental;
-    @Given("kullanici homepage {string} gider")
-    public void kullanici_homepage_gider(String string) {
-        seleniumHomeWork_blueRental=new S_Homework_BlueRental();
-        Driver.getDriver().get(string);
+S_Homework1 seleniumHomeWork_blueRental;
+S_Homework4 s_homework4;
 
+
+
+    @Given("kullanici homepage {string} gider")
+    public void kullanici_homepage_gider(String string) throws InterruptedException {
+        Thread.sleep(2000);
+        seleniumHomeWork_blueRental=new S_Homework1();
+        s_homework4=new S_Homework4();
+        Driver.getDriver().get(string);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        Driver.getDriver().switchTo().frame(s_homework4.iframe);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        s_homework4.cookie.click();
+        Driver.getDriver().switchTo().defaultContent();
     }
 
     @When("kullanici loginlinke tiklar")
@@ -53,6 +80,29 @@ S_Homework_BlueRental seleniumHomeWork_blueRental;
 
     }
 
+    @Then("Company listesini consola yazdirir")
+    public void companyListesiniConsolaYazdirir() {
+        s_homework4=new S_Homework4();
+        for (WebElement w : s_homework4.company){
+            System.out.println(w.getText());
+        }
+
+    }
+
+    @And("kullanici {string} in listede oldugunu test eder")
+    public void kullaniciInListedeOldugunuTestEder(String string) {
+        s_homework4=new S_Homework4();
+        List<String> arananIsim=new ArrayList<>();
+        for (WebElement w : s_homework4.company){
+            arananIsim.add(w.getText());
+        }
+      //  Assert.assertTrue(arananIsim.contains(string));
+        Assert.assertTrue (s_homework4.company.stream().map(t->t.getText()).collect(Collectors.toList()).contains(string));
+
+
+
+
+    }
 }
 
 

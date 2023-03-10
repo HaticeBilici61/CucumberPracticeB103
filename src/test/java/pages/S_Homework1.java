@@ -5,8 +5,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
-public class S_Homework_BlueRental {
-     public S_Homework_BlueRental(){
+public class S_Homework1 {
+     public S_Homework1(){
          PageFactory.initElements(Driver.getDriver(),this);
      }
     @FindBy(xpath = "//a[@class='btn btn-primary btn-sm']")
