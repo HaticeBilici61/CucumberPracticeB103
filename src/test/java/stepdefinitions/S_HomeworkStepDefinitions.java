@@ -28,11 +28,11 @@ S_Homework4 s_homework4;
         seleniumHomeWork_blueRental=new S_Homework1();
         s_homework4=new S_Homework4();
         Driver.getDriver().get(string);
-        try {
+       try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+       }
 
         Driver.getDriver().switchTo().frame(s_homework4.iframe);
         try {

@@ -3,6 +3,7 @@ package utilities;
 import org.apache.poi.ss.usermodel.*;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,8 @@ public class ExcelUtils {
     private Workbook workBook;
     private Sheet workSheet;
     private String path;
-    public ExcelUtils(String path, String sheetName) {//This Constructor is to open and access the excel file
+
+    public ExcelUtils(String path, String sheetName) throws IOException {//This Constructor is to open and access the excel file
         this.path = path;
         try {
             // Opening the Excel file
@@ -24,6 +26,7 @@ public class ExcelUtils {
             throw new RuntimeException(e);
         }
     }
+
     //This will get the list of the data in the excel file
     //This is a list of map of string. This takes the data as string and will return the data as a Map of String
     public List<Map<String, String>> getDataList() {
@@ -37,7 +40,7 @@ public class ExcelUtils {
             // creating map of the row using the column and value
             // key=column, value=cell
             Map<String, String> rowMap = new HashMap<String, String>();
-            for (Cell cell :row) {
+            for (Cell cell : row) {
                 int columnIndex = cell.getColumnIndex();
                 rowMap.put(columns.get(columnIndex), cell.toString());
             }
@@ -45,15 +48,22 @@ public class ExcelUtils {
         }
         return data;
     }
+
     //===============Getting the number of columns in a specific single row=================
+    //belirli bir tek satirdaki sutun sayisini alma
     public int columnCount() {
         //getting how many numbers in row 1
         return workSheet.getRow(0).getLastCellNum();
     }
+
     //===============how do you get the last row number?Index start at 0.====================
+    //son satir numarasini alma
     public int rowCount() {
-        return workSheet.getLastRowNum() + 1; }//adding 1 to get the actual count
+        return workSheet.getLastRowNum() + 1;
+    }//adding 1 to get the actual count
+
     //==============When you enter row and column number, then you get the data==========
+    //satir ve sutun numrasini girdigimizde data elde etme
     public String getCellData(int rowNum, int colNum) {
         Cell cell;
         try {
@@ -64,6 +74,7 @@ public class ExcelUtils {
             throw new RuntimeException(e);
         }
     }
+
     //============getting all data into two dimentional array and returning the data===
     public String[][] getDataArray() {
         String[][] data = new String[rowCount()][columnCount()];
@@ -75,7 +86,9 @@ public class ExcelUtils {
         }
         return data;
     }
+
     //==============going to the first row and reading each column one by one==================//
+    //ilk satira gidip tum sutunu tek tek okuyor
     public List<String> getColumnsNames() {
         List<String> columns = new ArrayList<>();
         for (Cell cell : workSheet.getRow(0)) {
@@ -83,7 +96,9 @@ public class ExcelUtils {
         }
         return columns;
     }
+
     //=========When you enter the row and column number, returning the value===============//
+    //satir ve sutun numrasini girince deger donduren
     public void setCellData(String value, int rowNum, int colNum) {
         Cell cell;
         Row row;
@@ -103,20 +118,27 @@ public class ExcelUtils {
             e.printStackTrace();
         }
     }
+
     public void setCellData(String value, String columnName, int row) {
         int column = getColumnsNames().indexOf(columnName);
         setCellData(value, row, column);
     }
+
     //this method will return data table as 2d array
     //so we need this format because of data provider.
+    //bu yontem veri tablosunu iki boyutlu dondurur
     public String[][] getDataArrayWithoutFirstRow() {
-        String[][] data = new String[rowCount()-1][columnCount()];
+        String[][] data = new String[rowCount() - 1][columnCount()];
         for (int i = 1; i < rowCount(); i++) {
             for (int j = 0; j < columnCount(); j++) {
                 String value = getCellData(i, j);
-                data[i-1][j] = value;
+                data[i - 1][j] = value;
             }
         }
         return data;
     }
+
+
+   public int rowPsıcalCount() {
+       return workSheet.getPhysicalNumberOfRows(); }
 }
