@@ -24,7 +24,5 @@ public class N11Page {
     public List<WebElement> magazalar;
 
 
-    @FindBy(xpath = "//iframe[@id='_hjSafeContext_39851032']")
-    public  WebElement iframe;
     }
 
