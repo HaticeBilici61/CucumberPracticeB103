@@ -4,6 +4,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
+import pages.ProjeUS10;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -191,5 +193,29 @@ public class ReusableMethods {
     public static void scrollTopJS(){
         JavascriptExecutor js = (JavascriptExecutor)Driver.getDriver();
         js.executeScript("window.scrollTo(0,-document.body.scrollHeight)");
+    }
+
+//
+//    public static void loginViceDean(String email, String Password) {
+//        Driver.getDriver().get(ConfigReader.getProperty("url"));
+//        ProjeUS10 vicedean = new ProjeUS10();
+//        vicedean.SigIn.click();
+//
+//        vicedean.username.sendKeys(ConfigReader.getProperty("ViceDeanUsername"));
+//        vicedean.password.sendKeys(ConfigReader.getProperty("ViceDeanPaasword"));
+//        vicedean.loginButton.click();
+//
+
+
+
+    public static void loginViceDean() {
+//        Driver.getDriver().get(ConfigReader.getProperty("SchoolManagementUrl"));
+        ProjeUS10 vicedean = new ProjeUS10();
+        ReusableMethods.waitFor(2);
+        vicedean.SigIn.click();
+        ReusableMethods.waitFor(2);
+        vicedean.username.sendKeys(ConfigReader.getProperty("ViceDeanUsername"));
+        vicedean.password.sendKeys(ConfigReader.getProperty("ViceDeanPassword"));
+        vicedean.loginButton.click();
     }
 }

@@ -4,11 +4,11 @@ Feature: blue_rental_login
 #NAME:kullanici tum manager login bilgileriyle giriş yapabilmeli
 #AC:
 #Given kullanici ana sayfada
-#When kullanici login sayfasina gider
-#And kullanıcı adini girer
-#And sifreyi girer
-#And login buttoning basar
-#Then login islemi gerçekleşir
+#When  kullanici login sayfasina gider
+#And   kullanıcı adini girer
+#And   sifreyi girer
+#And   login buttoning basar
+#Then  login islemi gerçekleşir
 #ARTIFACT:
 #url : https://www.bluerentalcars.com/
 #Credentials:
